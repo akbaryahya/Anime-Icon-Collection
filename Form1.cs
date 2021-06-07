@@ -38,12 +38,24 @@ namespace Rebuild_Icon
                     var hid = @$"{dir}\.hidden";
 
                     all++;
-                    log(ico);
+                    //log(ico);
                     //Thread.Sleep(600);
 
                     if (is_remove_config.Checked)
                     {
-                        RetIcon(dir, bas,is_remove_icon_found.Checked);
+                        var tes = RetIcon(dir, bas,is_remove_icon_found.Checked);
+                        if (!tes)
+                        {
+                            log($"Faild - {ico} : Remove Config False - Remove Icon {is_remove_icon_found.Checked}");
+                        }
+                        else
+                        {
+                            if (is_remove_icon_found.Checked)
+                            {
+                                log($"Remove - {ico} : Remove Config {tes} - Remove Icon True");
+                            }
+                        }
+                        
                         remove_config++;
                     }
                     else
@@ -76,20 +88,25 @@ namespace Rebuild_Icon
 
                                 found++;
                             }
-                            catch (Exception)
+                            catch (Exception ee)
                             {
+                                log($"Error - {ico} : {ee.Message}");
                                 error++;
-                            }                            
+                            }
                         }
                         else
                         {
+                            log($"{ico} : No Icon Found?");
                             error++;
                         }
                     }
                 }
 
                 // Reset Icon
-                //RefreshIcons();
+                if (auto_clear.Checked)
+                {
+                    RefreshIcons();
+                }                
 
                 log($"All Folder {all} | Icon OK {found} - Icon Error {error} | Remove Config {remove_config}");
             }
@@ -160,6 +177,19 @@ namespace Rebuild_Icon
             return true;
         }
 
+        public void Restart()
+        {
+            // find all the explorer processes and kill them
+            Process[] explorer = Process.GetProcessesByName("explorer");
+            foreach (Process process in explorer)
+            {
+                process.Kill();
+            }
+
+            // start a new explorer process
+            Process.Start("explorer.exe");
+        }
+
         public bool RetIcon(string dir, string icon,bool remove=false)
         {
             try
@@ -173,6 +203,16 @@ namespace Rebuild_Icon
                         IsReadOnly = false
                     };
                     File.Delete(dir + @"\desktop.ini");
+                }                
+                // .hidden
+                if (File.Exists(dir + @"\.hidden"))
+                {
+                    File.SetAttributes(dir + @"\.hidden", File.GetAttributes(dir + @"\.hidden") | FileAttributes.Normal); //Normal file
+                    FileInfo fileInfo = new FileInfo(dir + @"\.hidden")
+                    {
+                        IsReadOnly = false
+                    };
+                    File.Delete(dir + @"\.hidden");
                 }
                 // Icon.ico
                 if (File.Exists(dir + @"\" + icon))
@@ -187,17 +227,6 @@ namespace Rebuild_Icon
                         File.Delete(dir + @"\" + icon);
                     }
                 }
-                // .hidden
-                if (File.Exists(dir + @"\.hidden"))
-                {
-                    File.SetAttributes(dir + @"\.hidden", File.GetAttributes(dir + @"\.hidden") | FileAttributes.Normal); //Normal file
-                    FileInfo fileInfo = new FileInfo(dir + @"\.hidden")
-                    {
-                        IsReadOnly = false
-                    };
-                    File.Delete(dir + @"\.hidden");
-                }
-
                 return true;
             }
             catch (Exception)
@@ -226,6 +255,11 @@ namespace Rebuild_Icon
         private void bt_clear_cache_Click(object sender, EventArgs e)
         {
             RefreshIcons();
+        }
+
+        private void bt_restart_Click(object sender, EventArgs e)
+        {
+            Restart();
         }
     }
 }

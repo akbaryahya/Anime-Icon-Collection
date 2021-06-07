@@ -40,11 +40,13 @@ namespace Rebuild_Icon
             this.is_remove_icon_found = new System.Windows.Forms.CheckBox();
             this.bt_clear_cache = new System.Windows.Forms.Button();
             this.is_remove_config = new System.Windows.Forms.CheckBox();
+            this.auto_clear = new System.Windows.Forms.CheckBox();
+            this.bt_restart = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Start
             // 
-            this.Start.Location = new System.Drawing.Point(423, 300);
+            this.Start.Location = new System.Drawing.Point(438, 277);
             this.Start.Name = "Start";
             this.Start.Size = new System.Drawing.Size(53, 23);
             this.Start.TabIndex = 0;
@@ -58,7 +60,7 @@ namespace Rebuild_Icon
             this.Log.Multiline = true;
             this.Log.Name = "Log";
             this.Log.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.Log.Size = new System.Drawing.Size(468, 212);
+            this.Log.Size = new System.Drawing.Size(479, 212);
             this.Log.TabIndex = 1;
             // 
             // folder_url
@@ -73,7 +75,7 @@ namespace Rebuild_Icon
             // 
             this.folder_icon.Location = new System.Drawing.Point(249, 251);
             this.folder_icon.Name = "folder_icon";
-            this.folder_icon.Size = new System.Drawing.Size(231, 23);
+            this.folder_icon.Size = new System.Drawing.Size(242, 23);
             this.folder_icon.TabIndex = 3;
             this.folder_icon.Text = "i.ico";
             // 
@@ -133,7 +135,7 @@ namespace Rebuild_Icon
             // 
             // bt_clear_cache
             // 
-            this.bt_clear_cache.Location = new System.Drawing.Point(338, 300);
+            this.bt_clear_cache.Location = new System.Drawing.Point(249, 278);
             this.bt_clear_cache.Name = "bt_clear_cache";
             this.bt_clear_cache.Size = new System.Drawing.Size(79, 23);
             this.bt_clear_cache.TabIndex = 9;
@@ -151,11 +153,35 @@ namespace Rebuild_Icon
             this.is_remove_config.Text = "Remove Config";
             this.is_remove_config.UseVisualStyleBackColor = true;
             // 
+            // auto_clear
+            // 
+            this.auto_clear.AutoSize = true;
+            this.auto_clear.Checked = true;
+            this.auto_clear.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.auto_clear.Location = new System.Drawing.Point(227, 330);
+            this.auto_clear.Name = "auto_clear";
+            this.auto_clear.Size = new System.Drawing.Size(91, 19);
+            this.auto_clear.TabIndex = 11;
+            this.auto_clear.Text = "Auto Reload";
+            this.auto_clear.UseVisualStyleBackColor = true;
+            // 
+            // bt_restart
+            // 
+            this.bt_restart.Location = new System.Drawing.Point(334, 277);
+            this.bt_restart.Name = "bt_restart";
+            this.bt_restart.Size = new System.Drawing.Size(98, 23);
+            this.bt_restart.TabIndex = 12;
+            this.bt_restart.Text = "Restart Explorer";
+            this.bt_restart.UseVisualStyleBackColor = true;
+            this.bt_restart.Click += new System.EventHandler(this.bt_restart_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(488, 356);
+            this.ClientSize = new System.Drawing.Size(494, 356);
+            this.Controls.Add(this.bt_restart);
+            this.Controls.Add(this.auto_clear);
             this.Controls.Add(this.is_remove_config);
             this.Controls.Add(this.bt_clear_cache);
             this.Controls.Add(this.is_remove_icon_found);
@@ -189,6 +215,8 @@ namespace Rebuild_Icon
         private System.Windows.Forms.CheckBox is_remove_icon_found;
         private System.Windows.Forms.Button bt_clear_cache;
         private System.Windows.Forms.CheckBox is_remove_config;
+        private System.Windows.Forms.CheckBox auto_clear;
+        private System.Windows.Forms.Button bt_restart;
     }
 }
 
