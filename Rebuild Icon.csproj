@@ -2,9 +2,11 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <RootNamespace>Rebuild_Icon</RootNamespace>
     <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyVersion>2023.8.29.0741</AssemblyVersion>
+    <FileVersion>2023.8.29.0741</FileVersion>
   </PropertyGroup>
 
 </Project>
